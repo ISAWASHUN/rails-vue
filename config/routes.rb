@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
-  resources :occupations
+  resources :occupations   do
+    collection do
+      get :of_tday
+    end
+  end
   resources :regulations
-  devise_for :admins, controllers: {
-    registrations: 'admins/registrations',
-    sessions: 'admins/sessions'
-  }
+  resources :calenders
+  resources :rooms
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
-  resources :calenders
-  resources :rooms
-  root 'rooms#index'
+
+  devise_for :admins, controllers: {
+    registrations: 'admins/registrations',
+    sessions: 'admins/sessions'
+  }
+
+  root "rooms#index"
 end
